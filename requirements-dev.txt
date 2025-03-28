@@ -1,0 +1,7 @@
+isort
+black
+
+huggingface_hub[cli]
+
+vermin
+flit

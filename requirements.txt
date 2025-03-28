@@ -1,0 +1,6 @@
+setuptools
+pydantic
+huggingface_hub
+modelscope
+typer
+rich
