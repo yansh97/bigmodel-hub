@@ -28,16 +28,16 @@ List downloaded models.
 **Usage**:
 
 ```console
-$ bmhub list [OPTIONS] BACKEND:{hf|ms}
+$ bmhub list [OPTIONS] BACKEND:{hf|ms} [PATTERN]
 ```
 
 **Arguments**:
 
 * `BACKEND:{hf|ms}`: Model hub backend  [required]
+* `[PATTERN]`: Glob pattern to match model IDs
 
 **Options**:
 
-* `-p, --pattern TEXT`: Glob pattern to match model IDs
 * `--local-dir DIRECTORY`: The local model directory
 * `--help`: Show this message and exit.
 
@@ -68,16 +68,16 @@ Update downloaded models.
 **Usage**:
 
 ```console
-$ bmhub update [OPTIONS] BACKEND:{hf|ms}
+$ bmhub update [OPTIONS] BACKEND:{hf|ms} [PATTERN]
 ```
 
 **Arguments**:
 
 * `BACKEND:{hf|ms}`: Model hub backend  [required]
+* `[PATTERN]`: Glob pattern to match model IDs
 
 **Options**:
 
-* `-p, --pattern TEXT`: Glob pattern to match model IDs
 * `--local-dir DIRECTORY`: The local model directory
 * `--help`: Show this message and exit.
 
@@ -88,15 +88,15 @@ Remove downloaded models.
 **Usage**:
 
 ```console
-$ bmhub remove [OPTIONS] BACKEND:{hf|ms}
+$ bmhub remove [OPTIONS] BACKEND:{hf|ms} [PATTERN]
 ```
 
 **Arguments**:
 
 * `BACKEND:{hf|ms}`: Model hub backend  [required]
+* `[PATTERN]`: Glob pattern to match model IDs
 
 **Options**:
 
-* `-p, --pattern TEXT`: Glob pattern to match model IDs
 * `--local-dir DIRECTORY`: The local model directory
 * `--help`: Show this message and exit.

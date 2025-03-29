@@ -6,7 +6,7 @@ from pathlib import Path
 from modelscope.hub.snapshot_download import snapshot_download
 from modelscope.utils.file_utils import get_model_cache_root
 
-from bmhub.schema import CachedModelInfo
+from bmhub.schema import ModelInfo
 
 
 def get_ms_cache_dir() -> Path:
@@ -15,7 +15,7 @@ def get_ms_cache_dir() -> Path:
     return cache_dir
 
 
-def _list_cached_ms_models() -> list[CachedModelInfo]:
+def _list_cached_ms_models() -> list[ModelInfo]:
     cache_dir: Path = Path(get_model_cache_root()).expanduser().resolve()
     if not cache_dir.exists() or cache_dir.is_file():
         raise ValueError(
@@ -24,8 +24,8 @@ def _list_cached_ms_models() -> list[CachedModelInfo]:
     return _list_local_ms_models(local_dir=get_ms_cache_dir())
 
 
-def _list_local_ms_models(*, local_dir: Path) -> list[CachedModelInfo]:
-    models: list[CachedModelInfo] = []
+def _list_local_ms_models(*, local_dir: Path) -> list[ModelInfo]:
+    models: list[ModelInfo] = []
     for organization_path in sorted(local_dir.iterdir()):
         if not organization_path.is_dir():
             continue
@@ -38,14 +38,12 @@ def _list_local_ms_models(*, local_dir: Path) -> list[CachedModelInfo]:
                 continue
             if not (model_path / "config.json").exists():
                 continue
-            models.append(CachedModelInfo.from_local_path(model_path=model_path))
+            models.append(ModelInfo.from_local_path(model_path=model_path))
     return models
 
 
-def list_ms_models(
-    *, pattern: str | None, local_dir: Path | None
-) -> list[CachedModelInfo]:
-    models: list[CachedModelInfo]
+def list_ms_models(*, pattern: str | None, local_dir: Path | None) -> list[ModelInfo]:
+    models: list[ModelInfo]
     if local_dir is None:
         models = _list_cached_ms_models()
     else:
@@ -62,14 +60,14 @@ def download_ms_model(*, model_id: str, model_path: Path | None) -> None:
     snapshot_download(repo_id=model_id, local_dir=str(object=model_path))
 
 
-def update_ms_model(*, model: CachedModelInfo) -> None:
+def update_ms_model(*, model: ModelInfo) -> None:
     if model.path.is_relative_to(get_ms_cache_dir()):
         snapshot_download(repo_id=model.id)
         return
     snapshot_download(repo_id=model.id, local_dir=str(object=model.path))
 
 
-def remove_ms_model(*, model: CachedModelInfo) -> None:
+def remove_ms_model(*, model: ModelInfo) -> None:
     if model.path.is_relative_to(get_ms_cache_dir()):
         if model.path.is_symlink():
             origin_path: Path = model.path.readlink()

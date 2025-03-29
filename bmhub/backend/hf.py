@@ -11,7 +11,7 @@ from huggingface_hub.utils._cache_manager import (
     scan_cache_dir,
 )
 
-from bmhub.schema import CachedModelInfo
+from bmhub.schema import ModelInfo
 
 
 def get_hf_cache_dir() -> Path:
@@ -20,9 +20,9 @@ def get_hf_cache_dir() -> Path:
     return cache_dir
 
 
-def _list_cached_hf_models() -> list[CachedModelInfo]:
+def _list_cached_hf_models() -> list[ModelInfo]:
     return [
-        CachedModelInfo(
+        ModelInfo(
             id=repo.repo_id,
             path=repo.repo_path,
             size_on_disk=repo.size_on_disk,
@@ -34,8 +34,8 @@ def _list_cached_hf_models() -> list[CachedModelInfo]:
     ]
 
 
-def _list_local_hf_models(*, local_dir: Path) -> list[CachedModelInfo]:
-    models: list[CachedModelInfo] = []
+def _list_local_hf_models(*, local_dir: Path) -> list[ModelInfo]:
+    models: list[ModelInfo] = []
     for organization_path in local_dir.iterdir():
         if not organization_path.is_dir():
             continue
@@ -44,14 +44,12 @@ def _list_local_hf_models(*, local_dir: Path) -> list[CachedModelInfo]:
                 continue
             if not (model_path / "config.json").exists():
                 continue
-            models.append(CachedModelInfo.from_local_path(model_path=model_path))
+            models.append(ModelInfo.from_local_path(model_path=model_path))
     return models
 
 
-def list_hf_models(
-    *, pattern: str | None, local_dir: Path | None
-) -> list[CachedModelInfo]:
-    models: list[CachedModelInfo]
+def list_hf_models(*, pattern: str | None, local_dir: Path | None) -> list[ModelInfo]:
+    models: list[ModelInfo]
     if local_dir is None:
         models = _list_cached_hf_models()
     else:
@@ -68,14 +66,14 @@ def download_hf_model(*, model_id: str, model_path: Path | None) -> None:
     snapshot_download(repo_id=model_id, local_dir=model_path)
 
 
-def update_hf_model(*, model: CachedModelInfo) -> None:
+def update_hf_model(*, model: ModelInfo) -> None:
     if model.path.is_relative_to(get_hf_cache_dir()):
         snapshot_download(repo_id=model.id)
         return
     snapshot_download(repo_id=model.id, local_dir=model.path)
 
 
-def remove_hf_model(*, model: CachedModelInfo) -> None:
+def remove_hf_model(*, model: ModelInfo) -> None:
     if model.path.is_relative_to(get_hf_cache_dir()):
         cache: HFCacheInfo = scan_cache_dir()
         repos: dict[str, CachedRepoInfo] = {repo.repo_id: repo for repo in cache.repos}

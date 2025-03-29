@@ -6,7 +6,7 @@ ENV PYTHONPATH=/code
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-RUN python3.12 -m pip install --no-cache-dir --upgrade bigmodel-hub
+RUN python3.12 -m pip install --no-cache-dir --upgrade bigmodel-hub==0.2.0
 
 ENTRYPOINT ["bmhub"]
 CMD ["--help"]

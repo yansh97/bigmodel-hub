@@ -1,5 +1,4 @@
 import os
-from enum import Enum
 from pathlib import Path
 from typing import Self
 
@@ -10,12 +9,7 @@ from bmhub.utils import format_size, format_timesince
 FILES_TO_IGNORE: list[str] = [".DS_Store"]
 
 
-class Backend(Enum):
-    HUGGING_FACE = "hf"
-    MODEL_SCOPE = "ms"
-
-
-class CachedModelInfo(BaseModel):
+class ModelInfo(BaseModel):
     id: str
     path: Path
     size_on_disk: int
