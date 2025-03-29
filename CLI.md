@@ -79,6 +79,7 @@ $ bmhub update [OPTIONS] BACKEND:{hf|ms} [PATTERN]
 **Options**:
 
 * `--local-dir DIRECTORY`: The local model directory
+* `-y, --yes`: Confirm the action without prompting
 * `--help`: Show this message and exit.
 
 ## `bmhub remove`
@@ -99,4 +100,5 @@ $ bmhub remove [OPTIONS] BACKEND:{hf|ms} [PATTERN]
 **Options**:
 
 * `--local-dir DIRECTORY`: The local model directory
+* `-y, --yes`: Confirm the action without prompting
 * `--help`: Show this message and exit.

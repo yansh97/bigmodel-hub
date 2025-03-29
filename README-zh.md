@@ -32,8 +32,6 @@
 
 ## 安装
 
-### 本地安装
-
 ```bash
 pip install bigmodel-hub
 ```
@@ -48,46 +46,6 @@ bmhub --help
 
 ```bash
 HF_ENDPOINT=https://hf-mirror.com bmhub --help
-```
-
-### Docker 安装
-
-本项目提供官方 Docker 镜像，提供本地安装的所有 CLI 功能，CLI 命令与选项均与本地安装一致。
-
-拉取 Docker 镜像到本地。
-
-```bash
-docker pull yansh97/bigmodel-hub
-```
-
-测试 BigModel Hub CLI 可用性。
-
-```bash
-docker run --rm yansh97/bigmodel-hub --help
-```
-
-如果访问 Hugging Face 困难，设置环境变量 `HF_ENDPOINT` 。
-
-```bash
-docker run --rm -e HF_ENDPOINT=https://hf-mirror.com yansh97/bigmodel-hub --help
-```
-
-如果使用 Hugging Face Hub 的缓存机制，挂载 Hugging Face Hub 缓存目录到容器。
-
-```bash
-docker run --rm -v ~/.cache/huggingface:/root/.cache/huggingface yansh97/bigmodel-hub --help
-```
-
-如果使用 ModelScope Hub 的缓存机制，挂载 ModelScope Hub 缓存目录到容器。
-
-```bash
-docker run --rm -v ~/.cache/modelscope:/root/.cache/modelscope yansh97/bigmodel-hub --help
-```
-
-如果使用本地模型存储目录，挂载本地模型存储目录到容器。
-
-```bash
-docker run --rm -v <host-local-dir>:<container-local-dir> yansh97/bigmodel-hub --help
 ```
 
 ## CLI 功能

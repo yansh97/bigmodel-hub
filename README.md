@@ -32,8 +32,6 @@ Example of a local model storage directory structure:
 
 ## Installation
 
-### Local Installation
-
 ```bash
 pip install bigmodel-hub
 ```
@@ -48,46 +46,6 @@ If accessing Hugging Face is hard, set the `HF_ENDPOINT` environment variable:
 
 ```bash
 HF_ENDPOINT=https://hf-mirror.com bmhub --help
-```
-
-### Docker Installation
-
-This project provides an official Docker image with all CLI functionalities identical to the local installation.
-
-Pull the Docker image:
-
-```bash
-docker pull yansh97/bigmodel-hub
-```
-
-Test the availability of the BigModel Hub CLI:
-
-```bash
-docker run --rm yansh97/bigmodel-hub --help
-```
-
-If accessing Hugging Face is hard, set the `HF_ENDPOINT` environment variable:
-
-```bash
-docker run --rm -e HF_ENDPOINT=https://hf-mirror.com yansh97/bigmodel-hub --help
-```
-
-To use Hugging Face Hub's caching mechanism, mount its cache directory into the container:
-
-```bash
-docker run --rm -v ~/.cache/huggingface:/root/.cache/huggingface yansh97/bigmodel-hub --help
-```
-
-To use ModelScope Hub's caching mechanism, mount its cache directory into the container:
-
-```bash
-docker run --rm -v ~/.cache/modelscope:/root/.cache/modelscope yansh97/bigmodel-hub --help
-```
-
-To use a local model storage directory, mount it into the container:
-
-```bash
-docker run --rm -v <host-local-dir>:<container-local-dir> yansh97/bigmodel-hub --help
 ```
 
 ## CLI Features

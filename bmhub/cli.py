@@ -29,6 +29,9 @@ LOCAL_DIR_OPTION: Any = typer.Option(
     dir_okay=True,
     resolve_path=True,
 )
+YES_OPTION: Any = typer.Option(
+    "--yes", "-y", help="Confirm the action without prompting", show_default=False
+)
 
 
 def get_console() -> Console:
@@ -95,6 +98,7 @@ def update(
     pattern: Annotated[str | None, MODEL_ID_PATTERN_ARGUMENT] = None,
     *,
     local_dir: Annotated[Path | None, LOCAL_DIR_OPTION] = None,
+    yes: Annotated[bool, YES_OPTION] = False,
 ) -> None:
     """Update downloaded models."""
     models: list[ModelInfo] = backend.list_models(pattern=pattern, local_dir=local_dir)
@@ -105,7 +109,7 @@ def update(
     console.print(
         escape(markup=f"Do you want to update the {count} models? [y/N] "), end=""
     )
-    if not console.input().lower() == "y":
+    if not yes and not console.input().lower() == "y":
         return
     for i, m in enumerate(iterable=models):
         console.print(
@@ -120,6 +124,7 @@ def remove(
     pattern: Annotated[str | None, MODEL_ID_PATTERN_ARGUMENT] = None,
     *,
     local_dir: Annotated[Path | None, LOCAL_DIR_OPTION] = None,
+    yes: Annotated[bool, YES_OPTION] = False,
 ) -> None:
     """Remove downloaded models."""
     models: list[ModelInfo] = backend.list_models(pattern=pattern, local_dir=local_dir)
@@ -130,7 +135,7 @@ def remove(
     console.print(
         escape(markup=f"Do you want to remove the {count} models? [y/N] "), end=""
     )
-    if not console.input().lower() == "y":
+    if not yes and not console.input().lower() == "y":
         return
     for i, m in enumerate(iterable=models):
         console.print(
